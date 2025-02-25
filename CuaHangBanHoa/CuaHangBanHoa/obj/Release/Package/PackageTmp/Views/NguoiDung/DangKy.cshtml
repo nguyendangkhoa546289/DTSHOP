@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CuaHangBanHoa.TaiKhoan>
+
+@{
+    ViewBag.Title = "Đăng ký tài khoản";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+    var u = Session["useReg"] as CuaHangBanHoa.TaiKhoan;
+}
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body p-4">
+                        <h2 class="text-center text-primary fw-bold mb-3">Đăng ký</h2>
+                        <p class="text-center text-muted">Tạo tài khoản để tiếp tục mua sắm</p>
+
+                        @if (ViewBag.isReg != null && ViewBag.isReg == true)
+                        {
+                            <div class="alert alert-success text-center">
+                                @ViewBag.RegOk
+                            </div>
+                        }
+                        else if (ViewBag.RegOk != null)
+                        {
+                            <div class="alert alert-danger text-center">
+                                @ViewBag.RegOk
+                            </div>
+                        }
+
+                        @using (Html.BeginForm("DangKy", "NguoiDung", FormMethod.Post, new { @class = "form-signup" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group mb-3">
+                                <label for="HoTen" class="form-label fw-bold"><i class="fas fa-user"></i> Họ và tên</label>
+                                <input type="text" class="form-control" id="HoTen" name="HoTen" placeholder="Nhập họ và tên" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="Email" class="form-label fw-bold"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" class="form-control" id="Email" name="Email" placeholder="Nhập email" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="MatKhau" class="form-label fw-bold"><i class="fas fa-lock"></i> Mật khẩu</label>
+                                <input type="password" class="form-control" id="MatKhau" name="MatKhau" placeholder="Nhập mật khẩu" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="DienThoai" class="form-label fw-bold"><i class="fas fa-phone"></i> Số điện thoại</label>
+                                <input type="text" class="form-control" id="DienThoai" name="DienThoai" placeholder="Nhập số điện thoại" pattern="[0-9]{10,11}" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="DiaChi" class="form-label fw-bold"><i class="fas fa-map-marker-alt"></i> Địa chỉ</label>
+                                <input type="text" class="form-control" id="DiaChi" name="DiaChi" placeholder="Nhập địa chỉ" required>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Đăng ký</button>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <p class="mb-1">Bạn đã có tài khoản? <a class="text-primary fw-bold" href="@Url.Action("DangNhap","NguoiDung")">Đăng nhập tại đây</a></p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

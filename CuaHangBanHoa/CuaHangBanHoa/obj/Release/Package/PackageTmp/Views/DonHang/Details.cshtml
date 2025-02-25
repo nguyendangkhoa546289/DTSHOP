@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CuaHangBanHoa.ChiTietDonHang>
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-center mt-4">Chi tiết đơn hàng</h2>
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá / 1 sản phẩm</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.SanPham.TenSP)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
+                        <td>@String.Format("{0:0,0} VNĐ", item.DonGia)</td>
+                        <td>@String.Format("{0:0,0} VNĐ", item.ThanhTien)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index", "Donhangs", new { area = "" })" class="btn btn-secondary">Trở về</a>
+    </div>
+</div>

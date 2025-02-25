@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<main class="container mt-4" aria-labelledby="title">
+    <h2 id="title" class="text-center">@ViewBag.Title</h2>
+    <h3 class="text-center">@ViewBag.Message</h3>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <address>
+                <strong>Address:</strong><br>
+                Nội thất Z<br>
+                Đổi mới không gian sống
+            </address>
+
+            <address>
+                <strong>Phone:</strong><br>
+                <abbr title="Phone">Phone:</abbr> 0909 838668
+            </address>
+
+            <!-- Bản đồ Google Map -->
+            <div id="map" style="height: 400px; width: 100%;"></div>
+        </div>
+
+        <div class="col-md-6">
+            <address>
+                <strong>Support:</strong><br>
+                <a href="mailto:Support@example.com">xdangxkhoax@gmail.com</a><br>
+                <strong>Marketing:</strong><br>
+                <a href="mailto:Marketing@example.com">xdangxkhoax@gmail.com</a>
+            </address>
+        </div>
+    </div>
+</main>
+
+<!-- Kịch bản JavaScript để tải bản đồ Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+<script>
+    function initMap() {
+        var myLatLng = { lat: 47.642263, lng: -122.139958 }; // Tọa độ của vị trí trên bản đồ
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15, // Mức độ thu phóng
+            center: myLatLng // Điểm trung tâm của bản đồ
+        });
+
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: ' Nội thất Z'
+        });
+    }
+</script>

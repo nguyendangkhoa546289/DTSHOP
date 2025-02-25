@@ -1,0 +1,34 @@
+﻿@model CuaHangBanHoa.TinTuc
+@{
+    ViewBag.Title = "Xóa tin tức";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-danger">Xóa Tin Tức</h2>
+    <hr />
+
+    <p>Bạn có chắc chắn muốn xóa tin tức này?</p>
+
+    <div class="card mt-3 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title text-primary">@Model.TieuDe</h5>
+            <p class="card-text">@Model.NoiDung</p>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("DeleteNews", "TinTucAdmin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.MaTT)
+
+        <div class="mt-4 d-flex justify-content-between">
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i> Xóa
+            </button>
+            <a href="@Url.Action("Index", "TinTucAdmin")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Hủy
+            </a>
+        </div>
+    }
+</div>

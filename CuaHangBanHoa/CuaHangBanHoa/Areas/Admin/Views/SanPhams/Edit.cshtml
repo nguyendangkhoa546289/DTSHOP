@@ -1,0 +1,106 @@
+﻿@model CuaHangBanHoa.SanPham
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Sửa sản phẩm</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.MaSP)
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.TenSP, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập tên sản phẩm" } })
+                        @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.GiaBan, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập giá bán" } })
+                        @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Soluong, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.Soluong, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số lượng" } })
+                        @Html.ValidationMessageFor(model => model.Soluong, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.MaLoai, "Tên loại", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.DropDownList("MaLoai", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MaLoai, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+               
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Ảnh Sản Phẩm</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input type="text" id="AnhSPText" class="form-control" placeholder="Chưa chọn file" readonly />
+                            <div class="input-group-append">
+                                <input type="file" id="AnhSP" name="AnhSP" class="form-control-file d-none" />
+                                <button type="button" class="btn btn-primary" onclick="document.getElementById('AnhSP').click();">Chọn ảnh</button>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.AnhSP, "", new { @class = "text-danger" })
+                        <div class="mt-2">
+                            <img id="previewImage" src="@Model.AnhSP" class="img-thumbnail" style="max-width: 200px; display: @(string.IsNullOrEmpty(Model.AnhSP) ? "none" : "block")" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                    <div class="col-sm-10">
+                        @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", rows = 4, placeholder = "Nhập mô tả sản phẩm" })
+                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-success">Lưu</button>
+                        @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-secondary ml-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    document.getElementById("AnhSP").addEventListener("change", function (event) {
+        let file = event.target.files[0];
+        if (file) {
+            document.getElementById("AnhSPText").value = file.name; // Hiển thị tên file
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("previewImage").src = e.target.result;
+                document.getElementById("previewImage").style.display = "block"; // Hiển thị ảnh
+            };
+            reader.readAsDataURL(file);
+        } else {
+            document.getElementById("AnhSPText").value = "Chưa chọn file";
+            document.getElementById("previewImage").style.display = "none"; // Ẩn ảnh nếu không có file
+        }
+    });
+</script>

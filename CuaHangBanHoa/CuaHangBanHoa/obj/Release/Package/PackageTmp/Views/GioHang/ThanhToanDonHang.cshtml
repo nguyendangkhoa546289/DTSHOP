@@ -1,0 +1,74 @@
+﻿@model CuaHangBanHoa.DonHang
+
+@{
+    ViewBag.Title = "ThanhToanDonHang";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary">🛒 Trang Thanh Toán</h2>
+
+    @using (Html.BeginForm("DatHang", "GioHang", FormMethod.Post, new { @class = "p-4 shadow-sm bg-light rounded" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Madon)
+
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label font-weight-bold">📌 Tên người đặt hàng</label>
+                <div class="col-md-9">
+                    @Html.DropDownList("MaNguoidung", null, new { @class = "form-control", @disabled = "disabled" })
+                    @Html.ValidationMessageFor(model => model.MaNguoiDung, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-md-3 col-form-label font-weight-bold">📅 Ngày đặt</label>
+                <div class="col-md-9">
+                    @Html.DisplayFor(model => model.NgayDat, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NgayDat, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-md-3 col-form-label font-weight-bold">💰 Tổng tiền</label>
+                <div class="col-md-9">
+                    <h3 class="text-danger font-weight-bold">@String.Format("{0:0,0}", ViewBag.tongtien) VNĐ</h3>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-md-3 col-form-label font-weight-bold">📍 Địa chỉ nhận hàng</label>
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.DiaChiNhanHang, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DiaChiNhanHang, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-md-3 col-form-label font-weight-bold">💳 Phương thức thanh toán</label>
+                <div class="col-md-9">
+                    @Html.DropDownList("MaTT", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label class="col-md-3 col-form-label font-weight-bold">📝 Ghi chú</label>
+                <div class="col-md-9 text-danger small">
+                    - Thanh toán tiền mặt: Kiểm tra hàng trước khi thanh toán.<br />
+                    - Thanh toán chuyển khoản: STK 1111111111111, Chủ TK: Nguyễn Đăng Khoa, Ngân hàng Techcombank.<br />
+                    - Nội dung CK: Họ tên - SĐT - Thanh toán mua hàng.
+                </div>
+            </div>
+
+            <div class="form-group row mt-4 text-center">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success btn-lg">🚀 Đặt hàng ngay</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

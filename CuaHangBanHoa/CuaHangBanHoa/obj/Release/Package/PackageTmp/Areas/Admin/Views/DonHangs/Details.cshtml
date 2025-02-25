@@ -1,0 +1,102 @@
+﻿@model CuaHangBanHoa.DonHang
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chi tiết đơn hàng</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <span>Họ Tên</span>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaiKhoan.HoTen)
+        </dd>
+
+        <dt>
+            <span>Ngày Đặt</span>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayDat)
+        </dd>
+
+        <dt>
+            <span>Tình Trạng Đơn</span>
+        </dt>
+        <dd>
+            @{
+                if (Model.TinhTrang == 0)
+                {
+                    <div style="color:red">Đang chờ xác nhận</div>
+                }
+                else if (Model.TinhTrang == 1)
+                {
+                    <div style="color:slateblue">Đã xác nhận</div>
+                }
+                else
+                {
+                    <div style="color:red">Đang chờ xác nhận</div>
+
+                }
+            }
+        </dd>
+
+        <dt>
+            <span>Hình Thức Thanh Toán</span>
+        </dt>
+
+        <dd>
+            @{
+                if (Model.ThanhToan == 1)
+                {
+                    <div style="color:red">Thanh toán tiền mặt</div>
+                }
+                else if (Model.ThanhToan == 2)
+                {
+                    <div style="color:slateblue">Thanh toán chuyển khoản</div>
+
+                }
+            }
+        </dd>
+
+        <dt>
+            <span>Địa Chỉ Nhận Hàng</span>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChiNhanHang)
+        </dd>
+
+        <dt>
+            <span>Tổng Tiền</span>
+        </dt>
+
+        <dd>
+            @String.Format("{0:0,0}", Model.TongTien) VNĐ
+        </dd>
+    </dl>
+    @Html.Action("CTDetails", "DonHangs")
+</div>
+<button class="btn btn-info">
+    @Html.ActionLink("Xác nhận đơn hàng", "XacNhan", new { id = Model.Madon }, new { @style = "color:white;" })
+</button>
+<br />
+<br />
+<button class="btn btn-success">
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.Madon }, new { @style = "color:white;" })
+</button>
+
+@*
+    <button class="btn btn-danger">
+        @Html.ActionLink("Xóa", "Delete", new { id = Model.MaDon }, new { @style = "color:white;" })
+    </button>*@
+<br />
+<br />
+<p>
+    @Html.ActionLink("Trở về", "Index")
+</p>

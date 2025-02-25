@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "TimKiem";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+
+@if (!string.IsNullOrEmpty(ViewBag.ThongBao))
+{
+    <p>@ViewBag.ThongBao</p>
+}
+
+<style>
+    .product-title {
+        height: 50px; /* Cố định chiều cao */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Giới hạn số dòng */
+        -webkit-box-orient: vertical;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+</style>
+
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div class="col mb-5">
+                <div class="card h-100 d-flex flex-column">
+                    <a href="@Url.Action("XemChiTietSP", new {@MaSP=item.MaSP })">
+                        <center>
+                            <img src="@Url.Content("~" + item.AnhSP)" class="img-responsive" alt="" width="200" height="150" />
+                        </center>
+                    </a>
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div class="text-center">
+                            <h5 class="fw-bolder product-title">@item.TenSP</h5>
+                        </div>
+                        <div class="text-center">
+                            <span class="fw-bold text-danger">Giá: @String.Format("{0:0,0}", @item.GiaBan) VND</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

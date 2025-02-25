@@ -1,0 +1,83 @@
+﻿@model IEnumerable<CuaHangBanHoa.SanPham>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<style>
+    /* Đảm bảo tên sản phẩm có chiều cao cố định */
+    .product-title {
+        height: 50px; /* Đặt chiều cao cố định */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Hiển thị tối đa 2 dòng */
+        -webkit-box-orient: vertical;
+    }
+
+    /* Căn chỉnh các phần trong thẻ card để giá luôn thẳng hàng */
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    /* Cố định chiều cao của card để các nút luôn đều */
+    .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+        /* Hiệu ứng mở rộng chiều rộng khi hover */
+        .card img {
+            transition: width 0.3s ease-in-out;
+            width: 200px; /* Kích thước mặc định */
+            height: 150px; /* Giữ nguyên chiều cao */
+            object-fit: cover; /* Đảm bảo ảnh không bị méo */
+        }
+
+        .card:hover img {
+            width: 100%; /* Mở rộng ra toàn bộ chiều rộng của card */
+            border-radius:10px;
+        }
+    /* Căn nút "Thêm vào giỏ hàng" xuống dưới cùng */
+    .card-footer {
+        margin-top: auto;
+    }
+</style>
+
+<section class="py-1">
+    <center> <h3> Tất cả sản phẩm </h3> </center>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100 d-flex flex-column">
+                        <a href="@Url.Action("XemChiTietSP", new {@MaSP=item.MaSP })">
+                            <center>
+                                <img src="@Url.Content("~" + item.AnhSP.ToString())" class="img-responsive" alt="" width="200" height="150" />
+                            </center>
+                        </a>
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder product-title">@item.TenSP</h5>
+                                <span class="fw-bold text-danger">Giá: @String.Format("{0:0,0}", @item.GiaBan) VND</span>
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+                            @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSP = item.MaSP, @strURL = Request.Url.ToString() }))
+                            {
+                                <input type="submit" value="Thêm vào giỏ hàng" class="btn btn-outline-dark mt-auto" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

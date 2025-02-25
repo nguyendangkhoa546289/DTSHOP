@@ -1,0 +1,11 @@
+﻿@model IEnumerable<CuaHangBanHoa.LoaiHang>
+
+
+@foreach (var item in Model)
+{
+    <li>
+        <a href="@Url.Action("XemChiTietDanhMuc", "SanPham", new { @MaLoai = item.MaLoai })" class="dropdown-item"> @item.TenLoai </a>
+    </li>
+}
+
+

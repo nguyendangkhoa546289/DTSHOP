@@ -1,0 +1,103 @@
+﻿@model IEnumerable<CuaHangBanHoa.Models.ThongKes>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<br />
+
+<center><h2 style="color:red">Top 5 khách hàng mua hàng nhiều nhất</h2></center>
+<a href="@Url.Action("ExportExcel", "Thongkes")" class="btn btn-success mb-3">
+    <i class="fas fa-file-excel"></i> Xuất Excel
+</a>
+<br />
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Tên khách hàng
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Tổng tiền đã mua
+        </th>
+        <th>
+            Số lượng đơn hàng
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tennguoidung)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dienthoai)
+            </td>
+            <td>
+                @String.Format("{0:0,0}", item.Tongtien) VNĐ
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluong)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="container mt-5">
+    <canvas id="myChart" width="400" height="200"></canvas>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var labels = [];
+        var data = [];
+
+        @foreach (var item in Model.Take(5)) {
+            <text>labels.push('@Html.Raw(item.Tennguoidung)');</text>
+            <text>data.push('@item.Tongtien');</text>
+        }
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Tổng tiền đã mua',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return value.toLocaleString() + ' VNĐ';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw.toLocaleString() + ' VNĐ';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}

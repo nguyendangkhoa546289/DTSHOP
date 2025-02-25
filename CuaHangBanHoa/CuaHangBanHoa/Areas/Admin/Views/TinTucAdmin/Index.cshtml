@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<div class="container mt-5">
+    <!-- Nút Tạo Mới -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Danh Sách Tin Tức</h2>
+        <a href="@Url.Action("CreateNews","TinTucAdmin")" class="btn btn-success">
+            <i class="fas fa-plus"></i> Tạo Mới
+        </a>
+    </div>
+
+    <div class="row mt-3">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@item.TieuDe</h5>
+                        <p class="card-text text-muted">@item.NoiDung</p>
+                    </div>
+                    <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                        <a href="@Url.Action("EditNews","TinTucAdmin", new { id = item.MaTT })" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Chỉnh Sửa
+                        </a>
+                        <a href="@Url.Action("DeleteNews","TinTucAdmin", new { id = item.MaTT })" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i> Xóa
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

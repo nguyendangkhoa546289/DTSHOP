@@ -1,0 +1,42 @@
+﻿@model CuaHangBanHoa.TinTuc
+@{
+    ViewBag.Title = "Tạo Tin Tức";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary">Tạo Tin Tức Mới</h2>
+    <hr />
+
+    @using (Html.BeginForm("CreateNews", "TinTucAdmin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label class="control-label" for="TieuDe">Tiêu Đề</label>
+
+            @Html.TextBoxFor(model => model.TieuDe, new { @class = "form-control", placeholder = "Nhập tiêu đề tin tức" })
+            @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            <label class="control-label" for="TieuDe">Nội dung</label>
+
+            @Html.TextAreaFor(model => model.NoiDung, new { @class = "form-control", rows = 5, placeholder = "Nhập nội dung tin tức" })
+            @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save"></i> Lưu Tin Tức
+            </button>
+            <a href="@Url.Action("Index", "TinTucAdmin")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Hủy
+            </a>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    }
+</div>
+

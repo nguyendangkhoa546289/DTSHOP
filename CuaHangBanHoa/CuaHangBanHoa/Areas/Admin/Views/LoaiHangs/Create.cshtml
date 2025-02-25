@@ -1,0 +1,33 @@
+﻿@model CuaHangBanHoa.LoaiHang
+
+@{
+    ViewBag.Title = "Tạo loại hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-primary mb-4">📦 Tạo loại hàng</h2>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group row mb-3">
+                @Html.LabelFor(model => model.TenLoai, htmlAttributes: new { @class = "col-md-3 col-form-label fw-bold" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.TenLoai, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập tên loại hàng..." } })
+                    @Html.ValidationMessageFor(model => model.TenLoai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success btn-lg">✅ Tạo loại hàng</button>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-3">
+        @Html.ActionLink("🔙 Trở về", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>

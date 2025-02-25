@@ -1,0 +1,68 @@
+﻿@model CuaHangBanHoa.DonHang
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+    // Predefined lists for status and payment methods
+    var statusList = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "0", Text = "Đang chờ xác nhận" },
+        new SelectListItem { Value = "1", Text = "Đã xác nhận" },
+        new SelectListItem { Value = "2", Text = "Đã hủy" }
+    };
+
+    var paymentList = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "1", Text = "Tiền mặt" },
+        new SelectListItem { Value = "2", Text = "Chuyển khoản" }
+    };
+}
+
+<div class="container mt-1">
+    <h2 class="text-center mb-5">Sửa đơn hàng</h2>
+    @using (Html.BeginForm("Edit", "DonHangs", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Madon)
+
+        <div class="form-group">
+            <label for="NgayDat">Ngày Đặt:</label>
+            <input type="date" id="NgayDat" name="NgayDat" class="form-control" required>
+         </div>
+
+        <div class="form-group">
+            <label for="TinhTrang">Tình Trạng:</label>
+            @Html.DropDownListFor(model => model.TinhTrang, new SelectList(paymentList, "Value", "Text"), new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="ThanhToan">Thanh Toán:</label>
+            @Html.DropDownListFor(model => model.ThanhToan, new SelectList(paymentList, "Value", "Text"), new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="DiaChiNhanHang">Địa Chỉ Nhận Hàng:</label>
+            <input type="text" id="DiaChiNhanHang" name="DiaChiNhanHang" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="MaNguoiDung">Chọn Khách Hàng:</label>
+            @Html.DropDownList("MaNguoiDung", (SelectList)ViewBag.MaNguoiDung, new { @class = "form-control", @required = "required" })
+        </div>
+
+        <div class="form-group">
+            <label for="TongTien">Tổng Tiền:</label>
+            <input type="text" id="TongTien" name="TongTien" class="form-control" required>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-success">Tạo</button>
+                @Html.ActionLink("Trở về", "Index", null, new { @class = "btn btn-secondary ml-2" })
+            </div>
+        </div>
+    }
+</div>
+
+

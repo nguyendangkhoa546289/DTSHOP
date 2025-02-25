@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "XemChiTietSP";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 mb-4">
+                <img class="img-fluid rounded" src="@Url.Content(Model.AnhSP)" alt="@Model.TenSP" style="max-width: 100%; height: auto;" />
+            </div>
+            <div class="col-lg-7">
+                <div class="mb-3">
+                    <span class="text-muted">Loại hàng:</span> @Model.LoaiHang.TenLoai
+                </div>
+                <h1 class="display-5 fw-bold ">@Model.TenSP</h1>
+                <div class="fs-5 mb-4 text-danger">
+                    <span class="text-muted">Giá:</span> @String.Format("{0:0,0}", @Model.GiaBan) VNĐ
+                </div>
+      
+                <p class="lead">@Model.MoTa</p>
+                <div class="d-flex">
+                    @using (Html.BeginForm("ThemGioHang", "GioHang", new { iMaSP = Model.MaSP, strURL = Request.Url.ToString() }))
+                    {
+                        <button type="submit" class="btn btn-outline-dark me-3">
+                            <i class="bi-cart-fill me-1"></i> Thêm vào giỏ hàng
+                        </button>
+                    }
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-dark">Mua tiếp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

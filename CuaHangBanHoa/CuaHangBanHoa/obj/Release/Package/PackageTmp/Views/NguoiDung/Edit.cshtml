@@ -1,0 +1,61 @@
+﻿@model CuaHangBanHoa.TaiKhoan
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<center>
+    <h2 class=""> Chỉnh sửa thông tin cá nhân </h2>
+    <br />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal divGioHang">
+            <div class="form-group">
+                @Html.LabelFor(model => model.HoTen, "Họ & tên")
+                @Html.TextBoxFor(model => model.HoTen, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, "Email")
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Dienthoai, "Số điện thoại")
+                @Html.TextBoxFor(model => model.Dienthoai, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Matkhau, "Mật khẩu")
+                @Html.PasswordFor(model => model.Matkhau, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Diachi, "Địa chỉ")
+                @Html.TextBoxFor(model => model.Diachi, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group" style="text-align: right;">
+                <input type="submit" value="Lưu thay đổi" class="btn btn-success" />
+                @Html.ActionLink("Hủy", "ThongTinNguoiDung", new { id = Model.MaNguoiDung }, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    }
+</center>
+
+<style>
+    .divGioHang {
+        border: 2px solid #EEEEEE;
+        margin-left: 10%;
+        font-size: large;
+        width: 60%;
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+</style>

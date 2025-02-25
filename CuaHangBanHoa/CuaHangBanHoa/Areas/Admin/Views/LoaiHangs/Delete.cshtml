@@ -1,0 +1,30 @@
+﻿@model CuaHangBanHoa.LoaiHang
+
+@{
+    ViewBag.Title = "Xóa loại hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 text-center">
+        <h2 class="text-danger mb-4 mt-4">🗑️ Xóa loại hàng</h2>
+
+        <div class="alert alert-warning" role="alert">
+            <p><strong>Bạn có chắc chắn muốn xóa loại hàng này?</strong></p>
+        </div>
+
+        <dl class="row">
+            <dt class="col-md-4 fw-bold">Tên loại hàng:</dt>
+            <dd class="col-md-8">@Html.DisplayFor(model => model.TenLoai)</dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-danger btn-lg">🗑️ Xóa</button>
+                @Html.ActionLink("🔙 Trở về", "Index", null, new { @class = "btn btn-secondary btn-lg" })
+            </div>
+        }
+    </div>
+</div>
